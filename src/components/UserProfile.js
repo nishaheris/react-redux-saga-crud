@@ -29,7 +29,7 @@ function UserProfile() {
                     />
                   </div>
 
-                  <h3 clasclassNames="profile-username text-center">
+                  <h3 className="profile-username text-center">
                     {profileData.firstname} {profileData.lastname}
                   </h3>
                   <p class="text-muted text-center">
@@ -38,42 +38,42 @@ function UserProfile() {
                 </div>
               </div>
 
-              <div class="card card-primary">
-                <div class="card-header">
-                  <h3 class="card-title">About Me</h3>
+              <div className="card card-primary">
+                <div className="card-header">
+                  <h3 className="card-title">About Me</h3>
                 </div>
-                <div class="card-body">
+                <div className="card-body">
                   <strong>
-                    <i class="fas fa-book mr-1"></i> Education
+                    <i className="fas fa-book mr-1"></i> Education
                   </strong>
 
-                  <p class="text-muted">{profileData.education}</p>
+                  <p className="text-muted">{profileData.education}</p>
 
                   <hr />
 
                   <strong>
-                    <i class="fas fa-map-marker-alt mr-1"></i> Location
+                    <i className="fas fa-map-marker-alt mr-1"></i> Location
                   </strong>
 
-                  <p class="text-muted">{profileData.location}</p>
+                  <p className="text-muted">{profileData.location}</p>
 
                   <hr />
 
                   <strong>
-                    <i class="fas fa-pencil-alt mr-1"></i> Skills
+                    <i className="fas fa-pencil-alt mr-1"></i> Skills
                   </strong>
 
-                  <p class="text-muted">
+                  <p className="text-muted">
                     <span class="tag tag-danger">{profileData.skills}</span>
                   </p>
 
                   <hr />
 
                   <strong>
-                    <i class="far fa-file-alt mr-1"></i> Notes
+                    <i className="far fa-file-alt mr-1"></i> Notes
                   </strong>
 
-                  <p class="text-muted">{profileData.notes}</p>
+                  <p className="text-muted">{profileData.notes}</p>
                 </div>
               </div>
             </div>
