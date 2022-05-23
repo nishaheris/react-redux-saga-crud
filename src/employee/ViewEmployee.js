@@ -15,39 +15,51 @@ const ViewEmployee = () => {
   }, [id]);
 
   return (
-    <>
-      <Navbar />
-      <div style={{ marginTop: "100px" }}>
-        <div className="container">
-          <div className="row justify-content-md-center">
-            <h1>Employee Details</h1>
-            <hr />
-            <div className="col-4">Employee Name</div>
-            <div className="col-4">{singleEmployee.ename}</div>
+    <div className="content-wrapper">
+      <section className="content-header">
+        <div className="container-fluid">
+          <div className="row mb-2">
+            <div className="col-sm-6">
+              <h1 style={{ textAlign: "left" }}>{singleEmployee.ename}</h1>
+            </div>
           </div>
-          <div className="row justify-content-md-center">
-            <div className="col-4">Designation</div>
-            <div className="col-4">{singleEmployee.designation}</div>
-          </div>
-          <div className="row justify-content-md-center">
-            <div className="col-4">Email</div>
-            <div className="col-4">{singleEmployee.email}</div>
-          </div>
-          <div className="row justify-content-md-center">
-            <div className="col-4">Experience</div>
-            <div className="col-4">{singleEmployee.experince}</div>
-          </div>
-          <div className="row justify-content-md-center">
-            <div className="col-4">Location</div>
-            <div className="col-4">{singleEmployee.location}</div>
-          </div>
-          <div className="row justify-content-md-center">
-            <div className="col-4">Contact Number</div>
-            <div className="col-4">{singleEmployee.phone}</div>
+        </div>
+      </section>
+      <div className="content">
+        <div className="card">
+          <div className="card-header">
+            <div className="card-body">
+              <div className="row justify-content-md-center">
+                <h1>Employee Details</h1>
+                <hr />
+                <div className="col-4">Employee Name</div>
+                <div className="col-4">{singleEmployee.ename}</div>
+              </div>
+              <div className="row justify-content-md-center">
+                <div className="col-4">Designation</div>
+                <div className="col-4">{singleEmployee.designation}</div>
+              </div>
+              <div className="row justify-content-md-center">
+                <div className="col-4">Email</div>
+                <div className="col-4">{singleEmployee.email}</div>
+              </div>
+              <div className="row justify-content-md-center">
+                <div className="col-4">Experience</div>
+                <div className="col-4">{singleEmployee.experince}</div>
+              </div>
+              <div className="row justify-content-md-center">
+                <div className="col-4">Location</div>
+                <div className="col-4">{singleEmployee.location}</div>
+              </div>
+              <div className="row justify-content-md-center">
+                <div className="col-4">Contact Number</div>
+                <div className="col-4">{singleEmployee.phone}</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

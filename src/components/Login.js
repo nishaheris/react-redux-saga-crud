@@ -9,8 +9,17 @@ import { toast } from "react-toastify";
 
 export const Login = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("userLogin")) {
+      navigate("/dashboard");
+    }
+  }, []);
+
   const dispatch = useDispatch();
-  const [errorFields, setError] = useState("");
+  const [emailFields, setEmailError] = useState("");
+  const [passwordFields, setPasswordError] = useState("");
+
   const [checkLogin, setCheckLogin] = useState(false);
   const [login, setLogin] = useState({
     email: "",
@@ -18,12 +27,31 @@ export const Login = () => {
   });
 
   const handleInputChange = (e) => {
+    if (e.target.name === "email") {
+      setEmailError("");
+    } else if (e.target.name === "password") {
+      setPasswordError("");
+    }
     setLogin({
       ...login,
       [e.target.name]: e.target.value,
     });
   };
   const isLogin = useSelector((state) => state.login.isLogin);
+  const isLoginError = useSelector((state) => state.login.error);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!login.email || !login.password) {
+      setEmailError("Please enter email");
+      setPasswordError("Please enter password");
+    } else {
+      localStorage.setItem("userEmail", login.email);
+      dispatch(loginUser(login));
+      setCheckLogin(true);
+    }
+  };
 
   useEffect(() => {
     if (checkLogin) {
@@ -31,21 +59,12 @@ export const Login = () => {
         navigate("/dashboard");
         localStorage.setItem("userLogin", true);
       } else {
-        toast.error("User Not Found");
+        if (isLoginError && isLoginError !== "") {
+          toast.error(isLoginError);
+        }
       }
     }
-  }, [checkLogin, isLogin]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!login.email || !login.password) {
-      setError("Please enter email and password fields");
-    } else {
-      dispatch(loginUser(login));
-      setCheckLogin(true);
-    }
-  };
+  }, [checkLogin, isLogin, isLoginError]);
 
   return (
     <>
@@ -53,11 +72,11 @@ export const Login = () => {
         <div className="login-box">
           <div className="card card-outline card-primary">
             <div className="card-header text-center">
-              <a href="../../index2.html" className="h1">
+              <a className="h1">
                 <b>Login </b>
               </a>
             </div>
-            {errorFields && <h3 style={{ color: "red" }}> {errorFields}</h3>}
+
             <div className="card-body">
               <form onSubmit={handleSubmit}>
                 <div className="input-group mb-3">
@@ -68,6 +87,16 @@ export const Login = () => {
                     name="email"
                     onChange={handleInputChange}
                   />
+                  {emailFields && (
+                    <span
+                      style={{
+                        color: "red",
+                        font: "5px",
+                      }}
+                    >
+                      <p>{emailFields}</p>
+                    </span>
+                  )}
                   <div className="input-group-append">
                     <div className="input-group-text">
                       <span className="fas fa-envelope"></span>
@@ -82,6 +111,11 @@ export const Login = () => {
                     name="password"
                     onChange={handleInputChange}
                   />
+                  {passwordFields && (
+                    <p style={{ color: "red", font: "5px" }}>
+                      {passwordFields}
+                    </p>
+                  )}
                   <div className="input-group-append">
                     <div className="input-group-text">
                       <span className="fas fa-lock"></span>

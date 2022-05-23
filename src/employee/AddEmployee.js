@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addEmployee } from "../redux/actions/employeeActions";
 import { toast } from "react-toastify";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import Button from "@mui/material/Button";
 import "react-toastify/dist/ReactToastify.css";
 
 export const AddEmployee = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const notify = () => {
     // Calling toast method by passing string
     setTimeout(() => {
@@ -15,6 +18,8 @@ export const AddEmployee = () => {
     }, 1000);
   };
 
+  const [enameError, setEnameError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
   const [employee, setEmployee] = useState({
     ename: "",
     designation: "",
@@ -25,6 +30,9 @@ export const AddEmployee = () => {
   });
 
   const inputChnage = (e) => {
+    if (e.target.name === "ename") {
+      setEnameError("");
+    }
     setEmployee({
       ...employee,
       [e.target.name]: e.target.value,
@@ -37,79 +45,97 @@ export const AddEmployee = () => {
     if (ename && designation && email && location && experince && phone) {
       dispatch(addEmployee(employee));
       setTimeout(() => navigate("/dashboard"), 500);
+    } else {
+      if (!ename) {
+        setEnameError("Please enter name");
+      }
     }
   };
 
   const { ename, designation, email, location, experince, phone } = employee;
   return (
-    <div className="container">
-      <div className="w-75 mx-auto shadow p-5">
-        <h2 className="text-center mb-4">Add Employee</h2>
-        <form onSubmit={(e) => onSubmit(e)}>
-          <div className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="text"
+    <div className="content-wrapper">
+      <section className="content-header">
+        <div className="container-fluid">
+          <div className="row mb-2">
+            <div className="col-sm-6">
+              <h1 style={{ textAlign: "left" }}>Add Employee</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className="container">
+        <div className="w-75 mx-auto shadow p-5">
+          <ValidatorForm onSubmit={onSubmit}>
+            <TextValidator
+              label="Employee Name"
+              onChange={(e) => inputChnage(e)}
               name="ename"
-              placeholder="Employee name"
-              value={ename}
-              onChange={(e) => inputChnage(e)}
+              value={employee.ename}
+              validators={["required"]}
+              errorMessages={["Employee name field is required"]}
             />
-          </div>
-          <div className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="text"
+            <br />
+            <TextValidator
+              label="Designation"
+              onChange={(e) => inputChnage(e)}
               name="designation"
-              placeholder="Designation"
-              value={designation}
-              onChange={(e) => inputChnage(e)}
+              value={employee.designation}
+              validators={["required"]}
+              errorMessages={["Designation field is required"]}
             />
-          </div>
-          <div className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="text"
+            <br />
+            <TextValidator
+              label="Email"
+              onChange={(e) => inputChnage(e)}
               name="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => inputChnage(e)}
+              value={employee.email}
+              validators={["required", "isEmail"]}
+              errorMessages={["Email field is required", "Email is not valid"]}
             />
-          </div>
-          <div className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="text"
+            <br />
+            <TextValidator
+              label="Location"
+              onChange={(e) => inputChnage(e)}
               name="location"
-              placeholder="Location"
-              value={location}
-              onChange={(e) => inputChnage(e)}
+              value={employee.location}
+              validators={["required"]}
+              errorMessages={["Location field is required"]}
             />
-          </div>
-          <div className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="text"
+            <br />
+            <TextValidator
+              label="Experince"
+              onChange={(e) => inputChnage(e)}
               name="experince"
-              placeholder="experince"
-              value={experince}
-              onChange={(e) => inputChnage(e)}
+              value={employee.experince}
+              validators={["required"]}
+              errorMessages={["Experince field is required"]}
             />
-          </div>
-          <div className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="text"
+            <br />
+            <TextValidator
+              label="Phone"
+              onChange={(e) => inputChnage(e)}
               name="phone"
-              placeholder="phone"
-              value={phone}
-              onChange={(e) => inputChnage(e)}
+              value={employee.phone}
+              validators={["required", "isNumber"]}
+              errorMessages={[
+                "Phone field is required",
+                "Only number is required",
+              ]}
             />
-          </div>
-          <button className="btn btn-primary btn-block" onClick={notify}>
-            Add
-          </button>
-        </form>
+            <br />
+            <Button
+              color="primary"
+              variant="contained"
+              type="submit"
+              disabled={submitted}
+              onClick={notify}
+            >
+              {(submitted && "Your form is submitted!") ||
+                (!submitted && "Submit")}
+            </Button>
+          </ValidatorForm>
+        </div>
       </div>
     </div>
   );

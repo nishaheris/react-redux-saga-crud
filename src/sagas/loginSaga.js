@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 
 //Set URL from where get the data
 const apiUrl = "https://reqres.in/api/login";
@@ -23,8 +23,7 @@ function* fetchLoginUser(user) {
     if (userData.token) {
       yield put({ type: "LOGIN_USER_SUCCESS", user: userData });
     } else {
-      let message = "User Not Found";
-      yield put({ type: "LOGIN_USER_FAILED", message: message });
+      yield put({ type: "LOGIN_USER_FAILED", message: userData.error });
     }
   } catch (e) {
     yield put({ type: "LOGIN_USER_FAILED", message: e.message });

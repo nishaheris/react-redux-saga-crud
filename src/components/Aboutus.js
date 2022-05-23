@@ -1,25 +1,43 @@
 import React from "react";
-import Navbar from "./NavBar";
 
 export const Aboutus = () => {
   return (
     <>
-      <Navbar />
-      <div className="container">
-        <div className="py-4">
-          <h1>About Page</h1>
-          <p className="lead">
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose (injected humour
-            and the like).
-          </p>
+      <div className="content-wrapper">
+        <section className="content-header">
+          <div className="container-fluid">
+            <div className="row mb-2">
+              <div className="col-sm-6">
+                <h1 style={{ textAlign: "left" }}>Project Detail</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div className="content">
+          <div className="card">
+            <div className="card-header">
+              <div className="card-body">
+                <p style={{ textAlign: "left" }}>
+                  Hello all, This demo fully CRUD operation with Ract Redux
+                  Saga.
+                  <ul>
+                    <li>Mainly we use React latest version 18.1.0.</li>
+                    <li>As middleware as I used redux-saga.</li>
+                    <li>
+                      With the help of Json Server we careated API then we used
+                      that API for ADD, UPDATE, GET, DELETE functionality.
+                    </li>
+                    <li>
+                      In this we also used Routing functionality with
+                      PrivateRouter.
+                    </li>
+                    <li>For Datatable we used MUI Datatables version 4.2.2.</li>
+                    <li>For Designing we used bootstrap 5.1.3.</li>
+                  </ul>{" "}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

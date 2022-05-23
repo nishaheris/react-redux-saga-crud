@@ -5,7 +5,9 @@ import { editEmployee } from "../redux/actions/employeeActions";
 import { viewEmployee } from "../redux/actions/employeeActions";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navbar from "../components/NavBar";
+import { ValidatorForm } from "react-material-ui-form-validator";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 export const EditEmployee = () => {
   const navigate = useNavigate();
@@ -18,22 +20,16 @@ export const EditEmployee = () => {
   };
   const id = useParams();
 
-  const [ename, setEname] = useState("");
-  const [designation, setDesignation] = useState("");
-  const [email, setEmail] = useState("");
-  const [location, setLocation] = useState("");
-  const [experince, setExperince] = useState("");
-  const [phone, setPhone] = useState("");
+  const [employee, setEmployee] = useState({
+    ename: "",
+    designation: "",
+    email: "",
+    location: "",
+    experince: "",
+    phone: "",
+  });
 
-  // const [employee, setEmployee] = useState({
-  //   ename: "",
-  //   designation: "",
-  //   email: "",
-  //   location: "",
-  //   experince: "",
-  //   phone: "",
-  // });
-
+  const [submitted, setSubmitted] = useState(false);
   const singleEmployee = useSelector((state) => state.employee.singleEmployee);
 
   useEffect(() => {
@@ -42,132 +38,112 @@ export const EditEmployee = () => {
     }
   }, [id]);
 
-  const inputChnage = (e) => {
-    // setEmployee({
-    //   ...singleEmployee,
-    //   [e.target.name]: e.target.value,
-    // });
-    // console.log("Input Change Record", singleEmployee);
-  };
+  useEffect(() => {
+    setEmployee({ ...singleEmployee });
+  }, [singleEmployee]);
 
-  // const { ename, designation, email, location, experince, phone } =
-  //   singleEmployee;
+  const inputChnage = (e) => {
+    let { name, value } = e.target;
+    setEmployee({ ...employee, [name]: value });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    //if (ename || designation) {
-    var oldEname = ename == "" ? singleEmployee.ename : ename;
-    var oldDesignation =
-      designation == "" ? singleEmployee.designation : designation;
-
-    var oldEmail = email == "" ? singleEmployee.email : email;
-    var oldLocation = location == "" ? singleEmployee.location : location;
-    var oldExperince = experince == "" ? singleEmployee.experince : experince;
-    var oldPhone = phone == "" ? singleEmployee.phone : phone;
-
     dispatch(
       editEmployee({
-        id,
-        oldEname,
-        oldDesignation,
-        oldEmail,
-        oldLocation,
-        oldExperince,
-        oldPhone,
+        employee,
       })
     );
     setTimeout(() => navigate("/dashboard"), 500);
-    // if (ename == "" && designation == "") {
-    //   let oldEname = singleEmployee.ename;
-    //   let oldDesignation = singleEmployee.designation;
-    //   dispatch(editEmployee({ id, oldEname, oldDesignation }));
-    // } else {
-    //   console.log(ename);
-    //   dispatch(editEmployee({ id, ename, designation }));
-    // }
-    //setTimeout(() => navigate("/"), 500);
-    //}
   };
 
   return (
     <>
-      <Navbar />
-      <div className="container">
-        <div className="w-75 mx-auto shadow p-5">
-          <h2 className="text-center mb-4">Edit Employee</h2>
-          <form onSubmit={(e) => onSubmit(e)}>
-            <div className="form-group">
-              <input
-                //value={ename}
-                className="form-control form-control-lg"
-                type="text"
+      {" "}
+      <div className="content-wrapper">
+        <section className="content-header">
+          <div className="container-fluid">
+            <div className="row mb-2">
+              <div className="col-sm-6">
+                <h1 style={{ textAlign: "left" }}>Edit Employee</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div className="container">
+          <div className="w-75 mx-auto shadow p-5">
+            <ValidatorForm onSubmit={onSubmit}>
+              <TextField
+                label="Employee Name"
                 name="ename"
-                placeholder="Employee name"
-                onChange={(e) => setEname(e.target.value)}
-                defaultValue={singleEmployee.ename}
+                onChange={inputChnage}
+                value={employee.ename}
               />
-            </div>
-            <div className="form-group">
-              <input
-                //value={ename}
-                className="form-control form-control-lg"
-                type="text"
+              <br /> <br />
+              <TextField
+                label="Designation"
+                onChange={inputChnage}
                 name="designation"
-                placeholder="Employee designation"
-                onChange={(e) => setDesignation(e.target.value)}
-                defaultValue={singleEmployee.designation}
+                value={employee.designation}
+                validators={["required"]}
+                errorMessages={["Designation field is required"]}
               />
-            </div>
-            <div className="form-group">
-              <input
-                //value={ename}
-                className="form-control form-control-lg"
-                type="text"
+              <br /> <br />
+              <TextField
+                label="Email"
+                onChange={inputChnage}
                 name="email"
-                placeholder="Employee email"
-                onChange={(e) => setEmail(e.target.value)}
-                defaultValue={singleEmployee.email}
+                value={employee.email}
+                validators={["required", "isEmail"]}
+                errorMessages={[
+                  "Email field is required",
+                  "Email is not valid",
+                ]}
               />
-            </div>
-            <div className="form-group">
-              <input
-                //value={ename}
-                className="form-control form-control-lg"
-                type="text"
+              <br /> <br />
+              <TextField
+                label="Location"
+                onChange={inputChnage}
                 name="location"
-                placeholder="Employee location"
-                onChange={(e) => setLocation(e.target.value)}
-                defaultValue={singleEmployee.location}
+                value={employee.location}
+                validators={["required"]}
+                errorMessages={["Location field is required"]}
               />
-            </div>
-            <div className="form-group">
-              <input
-                //value={ename}
-                className="form-control form-control-lg"
-                type="text"
+              <br /> <br />
+              <TextField
+                label="Experince"
+                onChange={inputChnage}
                 name="experince"
-                placeholder="Employee experince"
-                onChange={(e) => setExperince(e.target.value)}
-                defaultValue={singleEmployee.experince}
+                value={employee.experince}
+                validators={["required"]}
+                errorMessages={["Experince field is required"]}
               />
-            </div>
-            <div className="form-group">
-              <input
-                //value={ename}
-                className="form-control form-control-lg"
-                type="text"
+              <br /> <br />
+              <TextField
+                label="Phone"
+                onChange={inputChnage}
                 name="phone"
-                placeholder="Employee phone"
-                onChange={(e) => setPhone(e.target.value)}
-                defaultValue={singleEmployee.phone}
+                value={employee.phone}
+                validators={["required", "isNumber"]}
+                errorMessages={[
+                  "Phone field is required",
+                  "Only number is required",
+                ]}
               />
-            </div>
-
-            <button className="btn btn-primary btn-block" onClick={notify}>
-              Edit
-            </button>
-          </form>
+              <br /> <br />
+              <Button
+                color="primary"
+                variant="contained"
+                type="submit"
+                disabled={submitted}
+                onClick={notify}
+              >
+                {(submitted && "Your form is submitted!") ||
+                  (!submitted && "Submit")}
+              </Button>
+            </ValidatorForm>
+          </div>
         </div>
       </div>
     </>

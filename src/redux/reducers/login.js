@@ -14,14 +14,15 @@ function login(state = initialState, action) {
         ...state,
         loading: true,
         isLogin: false,
-        error: action.message,
       };
     case type.LOGIN_USER_SUCCESS:
+      localStorage.setItem("userLogin", true);
       return {
         ...state,
         loading: false,
         isLogin: true,
         user: action.user,
+        error: "",
       };
 
     case type.LOGIN_USER_FAILED:
@@ -37,6 +38,7 @@ function login(state = initialState, action) {
         loading: true,
       };
     case type.LOGOUT_USER_SUCCESS:
+      localStorage.removeItem("userLogin");
       return {
         ...state,
         loading: false,

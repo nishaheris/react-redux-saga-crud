@@ -17,20 +17,27 @@ import "./public/dist/css/adminlte.min.css";
 import "./public/custom.css";
 import PrivateRoute from "./components/PrivateRoute";
 import { Navbar } from "react-bootstrap";
-// import "./public/plugins/jquery/jquery.js";
-// import "./public/plugins/bootstrap/js/bootstrap.bundle.min.js";
-//import "./public/dist/js/adminlte.min.js";
+import "./public/plugins/jquery/jquery.js";
+import "./public/plugins/bootstrap/js/bootstrap.bundle.min.js";
+import "./public/dist/js/adminlte.min.js";
+import Layout from "./layout/Layout";
+import UserProfile from "./components/UserProfile";
 
 function App() {
+  let { userLoginData } = useSelector((state) => state.login.isLogin);
+  const userLogin = localStorage.getItem("userLogin");
+
   return (
     <Router>
       <div className="App">
         <ToastContainer />
+        {userLogin ? <Layout /> : ""}
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route exact path="/" element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Home />} />
             <Route path="/about" element={<Aboutus />} />
+            <Route path="/profile" element={<UserProfile />} />
             <Route path="/employee/add" element={<AddEmployee />} />
             <Route path="/employee/:id" element={<ViewEmployee />} />
             <Route path="/employee/edit/:id" element={<EditEmployee />} />

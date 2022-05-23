@@ -62,8 +62,6 @@ function DeleteSingleRecordAPi(id) {
 
 //Edit single employee record data
 function editSingleRecordAPi(id, employee) {
-  console.log(employee);
-
   return fetch(apiUrl + "/" + id, {
     method: "PUT",
     headers: {
@@ -115,30 +113,37 @@ function* viewSingleEmployee(singleEmployee) {
 
 //Delet sigle Employee data
 function* deleteSingleEmployee(employee) {
-  const id = employee.payload;
-  try {
-    yield call(DeleteSingleRecordAPi, id);
+  const ids = employee.payload;
 
-    yield put({ type: "DELETE_EMPLOYEE_SUCCESS", id: id });
+  try {
+    if (employee.payload.length) {
+      for (let data of ids) {
+        yield call(DeleteSingleRecordAPi, data);
+        yield put({ type: "DELETE_EMPLOYEE_SUCCESS", data: data });
+      }
+    } else {
+      yield call(DeleteSingleRecordAPi, ids);
+      yield put({ type: "DELETE_EMPLOYEE_SUCCESS", ids: ids });
+    }
   } catch (e) {
     yield put({ type: "DELETE_EMPLOYEE_FAILED", message: e.message });
   }
 }
 
 function* editSingleEmployee({ payload }) {
-  const empID = payload.id.id;
+  const empID = payload.employee.id;
 
-  const empdata = {
-    ename: payload.oldEname,
-    designation: payload.oldDesignation,
-    email: payload.oldEmail,
-    location: payload.oldLocation,
-    experince: payload.oldExperince,
-    phone: payload.oldPhone,
-  };
+  // const empdata = {
+  //   ename: payload.oldEname,
+  //   designation: payload.oldDesignation,
+  //   email: payload.oldEmail,
+  //   location: payload.oldLocation,
+  //   experince: payload.oldExperince,
+  //   phone: payload.oldPhone,
+  // };
 
   try {
-    const employee = yield call(editSingleRecordAPi, empID, empdata);
+    const employee = yield call(editSingleRecordAPi, empID, payload.employee);
 
     yield put({ type: "EDIT_EMPLOYEE_SUCCESS", employee: employee });
   } catch (e) {
@@ -157,10 +162,3 @@ function* employeeSaga() {
 }
 
 export default employeeSaga;
-
-// const viewEmployeeData = yield call(() =>
-//   fetch(`http://localhost:3003/employee/${id}`).then((response) =>
-//     response.json()
-//   )
-// );
-//console.log("View employee data", viewEmployeeData);
