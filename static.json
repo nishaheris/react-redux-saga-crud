@@ -54,5 +54,14 @@
       "phone": "45782",
       "id": 11
     }
-  ]
+  ],
+  "userProfile": {
+    "firstname": "Admin",
+    "lastname": "LTE",
+    "designation": "Web Developer",
+    "education": "B.S. in Computer Science from the University of Tennessee at Knoxville",
+    "location": "Malibu, California",
+    "skills": "UI Design React.js",
+    "notes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque."
+  }
 }
