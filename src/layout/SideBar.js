@@ -34,7 +34,7 @@ function SideBar() {
           top: 0,
         }}
       >
-        <a href="index3.html" className="brand-link">
+        <a className="brand-link">
           <span className="brand-text font-weight-light">{userEmail}</span>
         </a>
 

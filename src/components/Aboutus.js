@@ -22,10 +22,16 @@ export const Aboutus = () => {
                   Saga.
                   <ul>
                     <li>Mainly we use React latest version 18.1.0.</li>
-                    <li>As middleware as I used redux-saga.</li>
+                    <li>As middleware as we used redux-saga.</li>
                     <li>
                       With the help of Json Server we careated API then we used
-                      that API for ADD, UPDATE, GET, DELETE functionality.
+                      that API for ADD, UPDATE, GET, DELETE functionality. For
+                      that please look after (static.json) file.
+                    </li>
+                    <li>We also used Multiple deletion.</li>
+                    <li>
+                      For validation we used ValidatorForm from
+                      react-material-ui-form-validator.
                     </li>
                     <li>
                       In this we also used Routing functionality with

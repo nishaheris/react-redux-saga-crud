@@ -1,17 +1,11 @@
 import MUIDataTable from "mui-datatables";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getEmployee,
-  deleteEmployee,
-  deleteMultipleUser,
-} from "../redux/actions/employeeActions";
+import { getEmployee, deleteEmployee } from "../redux/actions/employeeActions";
 import { toast } from "react-toastify";
-import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import BootstrapModal from "./BootstrapModal";
 import "../public/custom.css";
-import { getUserProfile } from "../redux/actions/userprofileAction";
 
 const Home = () => {
   const columns = [
@@ -26,9 +20,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const employee = useSelector((state) => state.employee.employee);
   const isLoginLoding = useSelector((state) => state.employee.loading);
-  const profileData = useSelector((state) => state.userprofile.userprofile);
-
-  const useLogdin = localStorage.getItem("userLogin");
 
   useEffect(() => {
     dispatch(getEmployee());
@@ -38,7 +29,6 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [userIds, setUserIds] = useState("");
   const [userEmails, setUserEmails] = useState("");
-  const [selectedRows, setSelectedRows] = useState([]);
   const multiDelete = [];
 
   const openModal = (empId, userEmail) => {
@@ -55,6 +45,7 @@ const Home = () => {
     dispatch(deleteEmployee(userIds));
     setShowModal(false);
     toast.success("Employee delete successfully.");
+    dispatch(getEmployee());
   };
 
   if (isLoginLoding) {
@@ -101,7 +92,6 @@ const Home = () => {
               <MUIDataTable
                 className="MuiTableCell-alignCenter"
                 title="Employee Data"
-                onSelectionChange={(rows) => setSelectedRows(rows)}
                 data={employee.map((employee, index) => {
                   return [
                     index + 1,

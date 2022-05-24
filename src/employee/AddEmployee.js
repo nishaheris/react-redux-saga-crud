@@ -12,15 +12,6 @@ export const AddEmployee = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const notify = () => {
-    // Calling toast method by passing string
-    setTimeout(() => {
-      toast.success("Employee added successfully");
-    }, 1000);
-  };
-
-  const [enameError, setEnameError] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [employee, setEmployee] = useState({
     ename: "",
     designation: "",
@@ -31,9 +22,6 @@ export const AddEmployee = () => {
   });
 
   const inputChnage = (e) => {
-    if (e.target.name === "ename") {
-      setEnameError("");
-    }
     setEmployee({
       ...employee,
       [e.target.name]: e.target.value,
@@ -46,10 +34,7 @@ export const AddEmployee = () => {
     if (ename && designation && email && location && experince && phone) {
       dispatch(addEmployee(employee));
       setTimeout(() => navigate("/dashboard"), 500);
-    } else {
-      if (!ename) {
-        enameError("Please enter name");
-      }
+      toast.success("Employee added successfully");
     }
   };
 
@@ -125,15 +110,9 @@ export const AddEmployee = () => {
               ]}
             />
             <br />
-            <Button
-              color="primary"
-              variant="contained"
-              type="submit"
-              disabled={submitted}
-              onClick={notify}
-            >
-              {(submitted && "Your form is submitted!") ||
-                (!submitted && "Submit")}
+            <Button color="primary" variant="contained" type="submit">
+              {" "}
+              Submit
             </Button>
           </ValidatorForm>
         </div>

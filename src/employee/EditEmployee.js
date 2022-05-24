@@ -12,12 +12,7 @@ import Button from "@mui/material/Button";
 export const EditEmployee = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const notify = () => {
-    // Calling toast method by passing string
-    setTimeout(() => {
-      toast.success("Employee Edit successfully");
-    }, 1000);
-  };
+
   const id = useParams();
 
   const [employee, setEmployee] = useState({
@@ -55,6 +50,7 @@ export const EditEmployee = () => {
         employee,
       })
     );
+    toast.success("Employee Edit successfully");
     setTimeout(() => navigate("/dashboard"), 500);
   };
 
@@ -137,7 +133,6 @@ export const EditEmployee = () => {
                 variant="contained"
                 type="submit"
                 disabled={submitted}
-                onClick={notify}
               >
                 {(submitted && "Your form is submitted!") ||
                   (!submitted && "Submit")}

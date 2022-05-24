@@ -83,7 +83,7 @@ export const Login = () => {
                   <input
                     type="email"
                     className="form-control"
-                    placeholder="Email"
+                    placeholder="use this eve.holt@reqres.in"
                     name="email"
                     onChange={handleInputChange}
                   />
