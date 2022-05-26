@@ -51,7 +51,9 @@ const Header = () => {
             </a>
           </li>{" "}
           <li
-            className={counts ? "nav-item dropdown show" : "nav-item dropdown"}
+            className={
+              counts > 0 ? "nav-item dropdown show" : "nav-item dropdown"
+            }
           >
             <a
               class="nav-link"
