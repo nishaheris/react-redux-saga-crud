@@ -2,13 +2,13 @@ import React from "react";
 import Header from "./Header";
 import SideBar from "./SideBar";
 
-function Layout() {
+const Layout = () => {
   return (
     <>
-      <SideBar />
       <Header />
+      <SideBar />
     </>
   );
-}
+};
 
 export default Layout;

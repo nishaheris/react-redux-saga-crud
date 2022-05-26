@@ -2,27 +2,25 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logOutUser } from "../redux/actions/loginActions";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserProfile } from "../redux/actions/userprofileAction";
 import profileImage from "../public/images/react.png";
 
-function SideBar() {
+const SideBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const useLogdin = localStorage.getItem("userLogin");
   const userEmail = localStorage.getItem("userEmail");
   const profileData = useSelector((state) => state.userprofile.userprofile);
 
-  useEffect(() => {
-    if (useLogdin) {
-      dispatch(getUserProfile());
-    }
-  }, [useLogdin]);
-
   const handleLogout = () => {
     localStorage.removeItem("userLogin");
+    localStorage.removeItem("userEmail");
+
     dispatch(logOutUser());
-    navigate("/");
-    navigate(0);
+
+    setTimeout(() => {
+      navigate("/");
+      navigate(0);
+    }, 10);
   };
   return (
     <>
@@ -82,6 +80,24 @@ function SideBar() {
               </li>
 
               <li className="nav-item">
+                <a href="#" className="nav-link">
+                  <i className="nav-icon fas fa-shopping-bag"></i>
+                  <p>
+                    {" "}
+                    Products
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview" style={{ display: "none" }}>
+                  <li class="nav-item">
+                    <NavLink to="/products" className="nav-link">
+                      <p>All Products</p>
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+
+              <li className="nav-item">
                 <p
                   className="nav-link"
                   onClick={handleLogout}
@@ -97,6 +113,6 @@ function SideBar() {
       </aside>
     </>
   );
-}
+};
 
 export default SideBar;

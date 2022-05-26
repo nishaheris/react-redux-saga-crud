@@ -19,12 +19,12 @@ const Home = () => {
   ];
   const dispatch = useDispatch();
   const employee = useSelector((state) => state.employee.employee);
-  const isLoginLoding = useSelector((state) => state.employee.loading);
+  console.log(employee);
 
+  const isLoginLoding = useSelector((state) => state.employee.loading);
   useEffect(() => {
     dispatch(getEmployee());
-    //}
-  }, [dispatch]);
+  }, []);
 
   const [showModal, setShowModal] = useState(false);
   const [userIds, setUserIds] = useState("");
@@ -118,8 +118,8 @@ const Home = () => {
                 })}
                 columns={columns}
                 options={{
-                  rowsPerPage: 2,
-                  rowsPerPageOptions: [2, 4, 6, 8],
+                  rowsPerPage: 5,
+                  rowsPerPageOptions: [5, 10],
                   filter: false,
                   download: false,
                   print: false,

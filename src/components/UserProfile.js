@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "../redux/actions/userprofileAction";
 import profileImage from "../public/images/react.png";
 
-function UserProfile() {
+const UserProfile = () => {
   const useLogdin = localStorage.getItem("userLogin");
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.userprofile.userprofile);
@@ -82,6 +82,6 @@ function UserProfile() {
       </section>
     </div>
   );
-}
+};
 
 export default UserProfile;

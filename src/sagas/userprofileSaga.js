@@ -1,4 +1,4 @@
-import { call, put, takeEvery, delay } from "redux-saga/effects";
+import { call, put, takeLatest, delay } from "redux-saga/effects";
 import { loadUserPrfile } from "../api/api";
 
 function* fetchUserProfile(action) {
@@ -18,7 +18,7 @@ function* fetchUserProfile(action) {
 }
 
 function* userprofileSaga() {
-  yield takeEvery("GET_USER_PROFILE_REQUESTED", fetchUserProfile);
+  yield takeLatest("GET_USER_PROFILE_REQUESTED", fetchUserProfile);
 }
 
 export default userprofileSaga;

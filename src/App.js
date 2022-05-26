@@ -22,10 +22,12 @@ import "./public/plugins/bootstrap/js/bootstrap.bundle.min.js";
 import "./public/dist/js/adminlte.min.js";
 import Layout from "./layout/Layout";
 import UserProfile from "./components/UserProfile";
+import Products from "./components/products/Products";
 
 function App() {
   let { userLoginData } = useSelector((state) => state.login.isLogin);
   const userLogin = localStorage.getItem("userLogin");
+  //const countCart = useSelector((state) => state.products.countCart);
 
   return (
     <Router>
@@ -38,6 +40,7 @@ function App() {
             <Route path="/dashboard" element={<Home />} />
             <Route path="/about" element={<Aboutus />} />
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/products" element={<Products />} />
             <Route path="/employee/add" element={<AddEmployee />} />
             <Route path="/employee/:id" element={<ViewEmployee />} />
             <Route path="/employee/edit/:id" element={<EditEmployee />} />

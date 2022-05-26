@@ -35,60 +35,6 @@
       "location": "Delhi",
       "experince": "0.5",
       "phone": "9878522136"
-    },
-    {
-      "id": 5,
-      "ename": "Kurtis Weissnat",
-      "designation": "Web Developer",
-      "email": "Kurtis@april.biz",
-      "location": "Delhi",
-      "experince": "3 Year",
-      "phone": "9875215630"
-    },
-    {
-      "id": 6,
-      "ename": "Glenna Reichert",
-      "designation": "PHP Head",
-      "email": "Glenna@april.biz",
-      "location": "Ahmedabad",
-      "experince": "7 Year",
-      "phone": "9875215630"
-    },
-    {
-      "id": 7,
-      "ename": "Clementina DuBuque",
-      "designation": "Web Designer",
-      "email": "Clementina@april.biz",
-      "location": "Ahmedabad",
-      "experince": "7 Year",
-      "phone": "9875215630"
-    },
-    {
-      "id": 8,
-      "ename": "Glenna Reichert",
-      "designation": "Web Designer",
-      "email": "Reichert@april.biz",
-      "location": "Ahmedabad",
-      "experince": "10 Year",
-      "phone": "9875215630"
-    },
-    {
-      "id": 9,
-      "ename": "Devid Richard sadddadsdads",
-      "designation": "Sales Developer",
-      "email": "Richard@april.biz",
-      "location": "Ahmedabad",
-      "experince": "10 Year",
-      "phone": "9878722333"
-    },
-    {
-      "ename": "Vasant",
-      "designation": "PHP developer",
-      "email": "sadsd@dsdfdf.com",
-      "location": "Ahmedabad",
-      "experince": "5 years",
-      "phone": "986655645",
-      "id": 10
     }
   ],
   "userProfile": {
@@ -99,5 +45,49 @@
     "location": "Malibu, California",
     "skills": "UI Design React.js",
     "notes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque."
-  }
+  },
+  "products": [
+    {
+      "id": 1,
+      "pname": "Google Pixel 6",
+      "price": "48,220",
+      "brand": "Google Pixel"
+    },
+    {
+      "id": 2,
+      "pname": "iPhone",
+      "price": "1,20,000",
+      "brand": "iPhone"
+    },
+    {
+      "id": 3,
+      "pname": "Samsung galaxy S22",
+      "price": "71,000",
+      "brand": "Samusung"
+    },
+    {
+      "id": 4,
+      "pname": "Samsung galaxy S22 ultra",
+      "price": "1,12,000",
+      "brand": "Samusung"
+    },
+    {
+      "id": 5,
+      "pname": "OnePlus 9Pro 5G",
+      "price": "49,000",
+      "brand": "OnePlus"
+    },
+    {
+      "id": 6,
+      "pname": "Samsung galaxy M12",
+      "price": "10,499",
+      "brand": "Samsung"
+    },
+    {
+      "id": 7,
+      "pname": "Motorola G60",
+      "price": "15,999",
+      "brand": "Motorola"
+    }
+  ]
 }
