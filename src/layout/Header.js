@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tempImage from "../public/productsimages/product.png";
 import { removeProductFromCart } from "../redux/actions/productActions";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Header = () => {
 
   const removeFromCart = (data) => {
     dispatch(removeProductFromCart(data));
+    toast.success("Remove product successfully");
   };
 
   return (
@@ -96,7 +98,7 @@ const Header = () => {
                   </a>
                 ))
               ) : (
-                <a class="dropdown-item" style={{ textAlign: "center" }}>
+                <a class="dropdown-item hide" style={{ textAlign: "center" }}>
                   Empty Cart
                 </a>
               )}

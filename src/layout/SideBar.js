@@ -71,6 +71,12 @@ const SideBar = () => {
                   <p>About Us</p>
                 </NavLink>
               </li>
+              <li className="nav-item menu-open">
+                <NavLink to="/contactus" className="nav-link">
+                  <i className="nav-icon fas fa-phone"></i>
+                  <p>Contact Us</p>
+                </NavLink>
+              </li>
 
               <li className="nav-item menu-open">
                 <NavLink to="/profile" className="nav-link">

@@ -6,6 +6,7 @@ import {
   getProducts,
 } from "../../redux/actions/productActions";
 import tempImage from "../../public/productsimages/product.png";
+import { toast } from "react-toastify";
 
 const Products = () => {
   const columns = ["Id", "Name", "Logo", "Price", "Brand", "Actions"];
@@ -49,6 +50,7 @@ const Products = () => {
 
   const addToCart = (products) => {
     dispatch(addProductToCart(products));
+    toast.success("Product add to cart successfully.");
   };
 
   return (
@@ -90,6 +92,7 @@ const Products = () => {
                   print: false,
                   viewColumns: false,
                   displayRowCheckbox: false,
+                  selectableRows: false,
                   rowsPerPage: 3,
                   rowsPerPageOptions: [3, 6, 9],
                 }}

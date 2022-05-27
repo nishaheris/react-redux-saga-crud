@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -9,7 +10,6 @@ import ViewEmployee from "./employee/ViewEmployee";
 import { Login } from "./components/Login";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import React, { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import "./public/plugins/fontawesome-free/css/all.min.css";
 import "./public/plugins/icheck-bootstrap/icheck-bootstrap.min.css";
@@ -23,6 +23,8 @@ import "./public/dist/js/adminlte.min.js";
 import Layout from "./layout/Layout";
 import UserProfile from "./components/UserProfile";
 import Products from "./components/products/Products";
+// import Contactus from "./components/Contactus";
+const LayContact = React.lazy(() => import("./components/Contactus"));
 
 function App() {
   let { userLoginData } = useSelector((state) => state.login.isLogin);
@@ -39,6 +41,14 @@ function App() {
           <Route exact path="/" element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Home />} />
             <Route path="/about" element={<Aboutus />} />
+            <Route
+              path="/contactus"
+              element={
+                <React.Suspense fallback="Loading...">
+                  <LayContact />
+                </React.Suspense>
+              }
+            />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/products" element={<Products />} />
             <Route path="/employee/add" element={<AddEmployee />} />

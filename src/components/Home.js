@@ -19,7 +19,6 @@ const Home = () => {
   ];
   const dispatch = useDispatch();
   const employee = useSelector((state) => state.employee.employee);
-  console.log(employee);
 
   const isLoginLoding = useSelector((state) => state.employee.loading);
   useEffect(() => {
