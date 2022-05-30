@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Navbar from "../components/NavBar";
-import { viewEmployee } from "../redux/actions/employeeActions";
+import { viewEmployee } from "../../redux/actions/employeeActions";
 
 const ViewEmployee = () => {
   const dispatch = useDispatch();

@@ -4,9 +4,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import { Aboutus } from "./components/Aboutus";
-import { AddEmployee } from "./employee/AddEmployee";
-import { EditEmployee } from "./employee/EditEmployee";
-import ViewEmployee from "./employee/ViewEmployee";
+import { AddEmployee } from "./components/employee/AddEmployee";
+import { EditEmployee } from "./components/employee/EditEmployee";
+import ViewEmployee from "./components/employee/ViewEmployee";
 import { Login } from "./components/Login";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -16,14 +16,12 @@ import "./public/plugins/icheck-bootstrap/icheck-bootstrap.min.css";
 import "./public/dist/css/adminlte.min.css";
 import "./public/custom.css";
 import PrivateRoute from "./components/PrivateRoute";
-import { Navbar } from "react-bootstrap";
 import "./public/plugins/jquery/jquery.js";
 import "./public/plugins/bootstrap/js/bootstrap.bundle.min.js";
 import "./public/dist/js/adminlte.min.js";
 import Layout from "./layout/Layout";
 import UserProfile from "./components/UserProfile";
 import Products from "./components/products/Products";
-// import Contactus from "./components/Contactus";
 const LayContact = React.lazy(() => import("./components/Contactus"));
 
 function App() {

@@ -40,6 +40,7 @@ export const Aboutus = () => {
                     <li>For Datatable we used MUI Datatables version 4.2.2.</li>
                     <li>For Designing we used bootstrap 5.1.3.</li>
                     <li>We also used Fairebase Login.</li>
+                    <li>We also covre Axios for calling API.</li>
                   </ul>{" "}
                 </p>
               </div>

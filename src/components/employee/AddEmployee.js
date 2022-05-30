@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addEmployee } from "../redux/actions/employeeActions";
 import { toast } from "react-toastify";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 import Button from "@mui/material/Button";
 import "react-toastify/dist/ReactToastify.css";
+import { addEmployee } from "../../redux/actions/employeeActions";
 
 export const AddEmployee = () => {
   const navigate = useNavigate();

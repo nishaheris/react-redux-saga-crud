@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { editEmployee } from "../redux/actions/employeeActions";
-import { viewEmployee } from "../redux/actions/employeeActions";
+import { editEmployee } from "../../redux/actions/employeeActions";
+import { viewEmployee } from "../../redux/actions/employeeActions";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ValidatorForm } from "react-material-ui-form-validator";

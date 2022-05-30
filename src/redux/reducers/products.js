@@ -82,8 +82,6 @@ function products(state = initialState, action) {
       }
       const _removeFinalcountCart = localStorage.getItem("cartValue");
 
-      console.log(state.cartData[action.payload].quanitity);
-
       if (state.cartData[action.payload].quanitity > 1) {
         state.cartData[action.payload].quanitity--;
         localStorage.setItem("cartDatas", JSON.stringify(state.cartData));
