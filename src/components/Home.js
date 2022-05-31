@@ -1,11 +1,19 @@
 import MUIDataTable from "mui-datatables";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployee, deleteEmployee } from "../redux/actions/employeeActions";
+import { useNavigate } from "react-router-dom";
+
+import {
+  getEmployee,
+  deleteEmployee,
+  viewEmployee,
+  editEmployee,
+} from "../redux/actions/employeeActions";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import BootstrapModal from "./BootstrapModal";
 import "../public/custom.css";
+import DeleteEmployeeModal from "../components/employee/DeleteEmployeeModal";
+import EditEmployeeModal from "./employee/EditEmployeeModal";
 
 const Home = () => {
   const columns = [
@@ -17,18 +25,33 @@ const Home = () => {
     "Contact",
     "Action",
   ];
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const employee = useSelector((state) => state.employee.employee);
 
   const isLoginLoding = useSelector((state) => state.employee.loading);
+
   useEffect(() => {
     dispatch(getEmployee());
   }, []);
 
+  const [employeeData, setEmployeeData] = useState({
+    ename: "",
+    designation: "",
+    email: "",
+    location: "",
+    experince: "",
+    phone: "",
+  });
+
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [userIds, setUserIds] = useState("");
   const [userEmails, setUserEmails] = useState("");
   const multiDelete = [];
+  const singleEmployee = useSelector((state) => state.employee.singleEmployee);
+  const [errorMsg, setErroeMsg] = useState();
 
   const openModal = (empId, userEmail) => {
     setUserIds(empId);
@@ -36,9 +59,23 @@ const Home = () => {
     setShowModal(true);
   };
 
+  const openEditModal = (item) => {
+    setShowEditModal(true);
+    dispatch(viewEmployee(item.id));
+    setUserIds(item.id);
+  };
+
   const hideModal = () => {
     setShowModal(false);
   };
+
+  const hideModalEdit = () => {
+    setShowEditModal(false);
+  };
+
+  useEffect(() => {
+    setEmployeeData({ ...singleEmployee });
+  }, [singleEmployee]);
 
   const handleDelete = () => {
     dispatch(deleteEmployee(userIds));
@@ -66,17 +103,94 @@ const Home = () => {
     }, 500);
   };
 
+  const validateForm = (e) => {
+    let errorMsg = {};
+
+    if (e.target.name === "ename") {
+      let errorEname = e.target.value;
+      if (errorEname === "") {
+        errorMsg.ename = "Please enter name";
+      }
+    }
+
+    if (e.target.name === "designation") {
+      let errorDesignation = e.target.value;
+      if (errorDesignation === "") {
+        errorMsg.designation = "Please enter Designation";
+      }
+    }
+
+    if (e.target.name === "email") {
+      let errorEmail = e.target.value;
+      if (errorEmail === "") {
+        errorMsg.email = "Please enter Email";
+      }
+    }
+
+    if (e.target.name === "location") {
+      let errorLocation = e.target.value;
+      if (errorLocation === "") {
+        errorMsg.location = "Please enter Location";
+      }
+    }
+
+    if (e.target.name === "experince") {
+      let errorExperince = e.target.value;
+      if (errorExperince === "") {
+        errorMsg.experince = "Please enter Experince";
+      }
+    }
+
+    if (e.target.name === "phone") {
+      let errorPhone = e.target.value;
+      if (errorPhone === "") {
+        errorMsg.phone = "Please enter Phone";
+      }
+    }
+
+    return setErroeMsg(errorMsg);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      editEmployee({
+        employeeData,
+      })
+    );
+    setShowEditModal(false);
+    toast.success("Employee Edit successfully");
+    dispatch(getEmployee());
+    setTimeout(() => navigate("/dashboard"), 500);
+  };
+
+  const inputChnage = (e) => {
+    let { name, value } = e.target;
+    setEmployeeData({ ...employeeData, [name]: value });
+    validateForm(e);
+  };
+
   return (
     <div className="content-wrapper">
       <div className="content">
         <div className="container-fluid">
           <div className="row">
             <div style={{ marginTop: "50px" }}>
-              <BootstrapModal
+              <DeleteEmployeeModal
                 setShowModal={showModal}
                 hideModal={hideModal}
                 userEmail={userEmails}
                 deleteEmployee={handleDelete}
+              />
+
+              <EditEmployeeModal
+                setShowEditModal={showEditModal}
+                hideModalEdit={hideModalEdit}
+                onSubmit={onSubmit}
+                inputChnage={inputChnage}
+                employeeData={employeeData}
+                errorMsg={errorMsg}
               />
               <Link
                 style={{ marginLeft: "88%" }}
@@ -103,9 +217,15 @@ const Home = () => {
                       <Link size="sm" to={`/employee/` + employee.id}>
                         <i className="fa fa-eye"></i>
                       </Link>
-                      <Link size="sm" to={`/employee/edit/` + employee.id}>
+                      {/* <Link size="sm" to={`/employee/edit/` + employee.id}>
                         <i className="fa fa-pencil-alt"></i>
-                      </Link>
+                      </Link> */}
+                      <a size="sm" onClick={() => openEditModal(employee)}>
+                        <i
+                          style={{ color: "#007bff" }}
+                          className="fa fa-pencil-alt"
+                        ></i>
+                      </a>
                       <a
                         size="sm"
                         onClick={() => openModal(employee.id, employee.email)}

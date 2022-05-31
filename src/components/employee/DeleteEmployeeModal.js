@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 
-const BootstrapModal = ({
+const DeleteEmployeeModal = ({
   setShowModal,
   hideModal,
   userEmail,
@@ -30,4 +30,4 @@ const BootstrapModal = ({
   );
 };
 
-export default BootstrapModal;
+export default DeleteEmployeeModal;

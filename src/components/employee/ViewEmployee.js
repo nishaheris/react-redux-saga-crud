@@ -5,7 +5,7 @@ import { viewEmployee } from "../../redux/actions/employeeActions";
 
 const ViewEmployee = () => {
   const dispatch = useDispatch();
-  const id = useParams();
+  const { id } = useParams();
 
   const singleEmployee = useSelector((state) => state.employee.singleEmployee);
 

@@ -99,7 +99,7 @@ function* addEmployee(employee) {
 }
 
 function* viewSingleEmployee(singleEmployee) {
-  const id = singleEmployee.payload.id;
+  const id = singleEmployee.payload;
   try {
     const singleEmployee = yield call(singleRecordAPi, id);
     yield put({
@@ -131,7 +131,7 @@ function* deleteSingleEmployee(employee) {
 }
 
 function* editSingleEmployee({ payload }) {
-  const empID = payload.employee.id;
+  const empID = payload.employeeData.id;
 
   // const empdata = {
   //   ename: payload.oldEname,
@@ -143,7 +143,11 @@ function* editSingleEmployee({ payload }) {
   // };
 
   try {
-    const employee = yield call(editSingleRecordAPi, empID, payload.employee);
+    const employee = yield call(
+      editSingleRecordAPi,
+      empID,
+      payload.employeeData
+    );
 
     yield put({ type: "EDIT_EMPLOYEE_SUCCESS", employee: employee });
   } catch (e) {
