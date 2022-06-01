@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/actions/loginActions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Signup from "./modals/Signup";
+import { useFormik } from "formik";
+import { signupStart } from "../redux/actions/signupAction";
 
 // Email: eve.holt@reqres.in
 // Password: cityslicka
@@ -19,6 +22,10 @@ export const Login = () => {
   const dispatch = useDispatch();
   const [emailFields, setEmailError] = useState("");
   const [passwordFields, setPasswordError] = useState("");
+  const isLogin = useSelector((state) => state.login.isLogin);
+  const isLoginError = useSelector((state) => state.login.error);
+  const [showModal, setShowModal] = useState(false);
+  const [signupFields, setSignupFields] = useState("");
 
   const [checkLogin, setCheckLogin] = useState(false);
   const [login, setLogin] = useState({
@@ -37,8 +44,6 @@ export const Login = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const isLogin = useSelector((state) => state.login.isLogin);
-  const isLoginError = useSelector((state) => state.login.error);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,6 +71,55 @@ export const Login = () => {
     }
   }, [checkLogin, isLogin, isLoginError]);
 
+  const handleSignup = () => {
+    setShowModal(true);
+  };
+
+  const modalHide = () => {
+    setShowModal(false);
+  };
+
+  const validators = (item) => {
+    let errorsDisp = {};
+
+    if (!item.firstname) {
+      errorsDisp.firstname = "First name is required.";
+    }
+    if (!item.lastname) {
+      errorsDisp.lastname = "Last name is required.";
+    }
+    if (!item.email) {
+      errorsDisp.email = "Email is required.";
+    } else if (
+      !/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/.test(item.email)
+    ) {
+      errorsDisp.email = "Invalid Email";
+    }
+    return errorsDisp;
+  };
+
+  const initalSignup = {
+    firstname: "",
+    lastname: "",
+    email: "",
+  };
+  const formik = useFormik({
+    initialValues: {
+      firstname: "",
+      lastname: "",
+      email: "",
+    },
+    onSubmit: (values) => {
+      dispatch(signupStart(values));
+      setTimeout(() => {
+        navigate("/");
+        toast.success("Signup successfully");
+      }, 500);
+      setShowModal(false);
+    },
+    validate: validators,
+  });
+
   return (
     <>
       <div className="hold-transition login-page">
@@ -76,7 +130,11 @@ export const Login = () => {
                 <b>Login </b>
               </a>
             </div>
-
+            <Signup
+              setShowModal={showModal}
+              hideModal={modalHide}
+              formik={formik}
+            />
             <div className="card-body">
               <form onSubmit={handleSubmit}>
                 <div className="input-group mb-3">
@@ -129,6 +187,16 @@ export const Login = () => {
                     </button>
                   </div>
                 </div>
+                <p
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleSignup}
+                >
+                  Sign Up
+                </p>
               </form>
             </div>
           </div>

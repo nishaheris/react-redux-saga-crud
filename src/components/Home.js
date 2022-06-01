@@ -52,6 +52,7 @@ const Home = () => {
   const multiDelete = [];
   const singleEmployee = useSelector((state) => state.employee.singleEmployee);
   const [errorMsg, setErroeMsg] = useState();
+  const [inValidEmail, setInValidEmail] = useState();
 
   const openModal = (empId, userEmail) => {
     setUserIds(empId);
@@ -124,6 +125,8 @@ const Home = () => {
       let errorEmail = e.target.value;
       if (errorEmail === "") {
         errorMsg.email = "Please enter Email";
+      } else if (validEmail(errorEmail)) {
+        errorMsg.email = inValidEmail;
       }
     }
 
@@ -150,6 +153,20 @@ const Home = () => {
 
     return setErroeMsg(errorMsg);
   };
+
+  function validEmail(email) {
+    let msg = "Please enter valid email";
+    const regexp =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    console.log(regexp.test(email));
+    if (regexp.test(email) === false) {
+      setInValidEmail(msg);
+    } else {
+      setInValidEmail("");
+    }
+    return inValidEmail;
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
