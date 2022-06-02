@@ -15,13 +15,17 @@ function signup(state = initialState, action) {
         loading: true,
       };
     case type.SIGNUP_USER_SUCCESS:
-      let localData = {
-        firstname: action.user.firstname,
-        lastname: action.user.lastname,
-        email: action.user.email,
-      };
-      state.signup.push(localData);
-      localStorage.setItem("signupUserData", JSON.stringify(state.signup));
+      let existData = localStorage.getItem("signupUserData");
+
+      if (!existData) {
+        let localData = {
+          firstname: action.user.firstname,
+          lastname: action.user.lastname,
+          email: action.user.email,
+        };
+        state.signup.push(localData);
+        localStorage.setItem("signupUserData", JSON.stringify(state.signup));
+      }
 
       return {
         ...state,

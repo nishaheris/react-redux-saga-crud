@@ -20,3 +20,10 @@ export function removeProductFromCart(items) {
     payload: items,
   };
 }
+
+export function searchProduct(searchText) {
+  return {
+    type: type.SEARCH_PRODUCT_REQUISTED,
+    payload: searchText,
+  };
+}

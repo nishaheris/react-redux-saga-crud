@@ -111,11 +111,11 @@ export const Login = () => {
     },
     onSubmit: (values) => {
       dispatch(signupStart(values));
-      setTimeout(() => {
-        navigate("/");
-        toast.success("Signup successfully");
-      }, 500);
-      setShowModal(false);
+      // setTimeout(() => {
+      //   navigate("/");
+      //   toast.success("Signup successfully");
+      // }, 500);
+      // setShowModal(false);
     },
     validate: validators,
   });

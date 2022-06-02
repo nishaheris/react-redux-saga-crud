@@ -27,7 +27,6 @@ const LayContact = React.lazy(() => import("./components/Contactus"));
 function App() {
   let { userLoginData } = useSelector((state) => state.login.isLogin);
   const userLogin = localStorage.getItem("userLogin");
-  //const countCart = useSelector((state) => state.products.countCart);
 
   return (
     <Router>

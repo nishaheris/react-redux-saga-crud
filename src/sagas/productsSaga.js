@@ -31,10 +31,19 @@ function* removeProductFromCart({ payload: items, payload }) {
   }
 }
 
+function* searchProductRequest({ payload: searchText, payload }) {
+  try {
+    yield put({ type: "SEARCH_PRODUCT_SUCCESS", payload: payload });
+  } catch (e) {
+    yield put({ type: "SEARCH_PRODUCT_FAILED", message: e.message });
+  }
+}
+
 function* productsSaga() {
   yield takeLatest("GET_PRODUCTS_REQUESTED", fetchProductsData);
   yield takeLatest("ADD_CART_REQUESTED", addProductToCart);
   yield takeLatest("REMOVE_CART_REQUESTED", removeProductFromCart);
+  yield takeLatest("SEARCH_PRODUCT_REQUISTED", searchProductRequest);
 }
 
 export default productsSaga;

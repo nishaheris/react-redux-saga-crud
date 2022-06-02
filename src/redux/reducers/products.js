@@ -6,6 +6,7 @@ const initialState = {
   error: null,
   countCart: 0,
   cartData: [],
+  findProducts: [],
 };
 
 function products(state = initialState, action) {
@@ -13,6 +14,7 @@ function products(state = initialState, action) {
     case type.GET_PRODUCTS_REQUESTED:
     case type.ADD_CART_REQUESTED:
     case type.REMOVE_CART_REQUESTED:
+    case type.SEARCH_PRODUCT_REQUISTED:
       return {
         ...state,
         loading: true,
@@ -102,9 +104,26 @@ function products(state = initialState, action) {
         countCart: _removeFinalcountCart,
       };
 
+    case type.SEARCH_PRODUCT_SUCCESS:
+      const searchValue = action.payload;
+      return {
+        ...state,
+        loading: false,
+        findProducts: state.products.filter(
+          (item) =>
+            `${item.pname}`
+              .toLocaleLowerCase()
+              .includes(searchValue.toLocaleLowerCase()) ||
+            `${item.price}`
+              .toLocaleLowerCase()
+              .includes(searchValue.toLocaleLowerCase())
+        ),
+      };
+
     case type.GET_PRODUCTS_FAILED:
     case type.ADD_CART_FAILED:
     case type.REMOVE_CART_FAILED:
+    case type.SEARCH_PRODUCT_FAILED:
       return {
         ...state,
         loading: false,

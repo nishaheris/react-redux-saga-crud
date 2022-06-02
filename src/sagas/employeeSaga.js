@@ -158,7 +158,7 @@ function* editSingleEmployee({ payload }) {
 // call above function in saga function
 function* employeeSaga() {
   //takeEvery allows multiple fetchData instances to be started concurrently
-  yield takeEvery("GET_EMPLOYEE_REQUESTED", fetchEmployee);
+  yield takeLatest("GET_EMPLOYEE_REQUESTED", fetchEmployee);
   yield takeLatest("CREATE_EMPLOYEE_REQUESTED", addEmployee);
   yield takeLatest("DELETE_EMPLOYEE_REQUESTED", deleteSingleEmployee);
   yield takeLatest("EDIT_EMPLOYEE_REQUESTED", editSingleEmployee);
