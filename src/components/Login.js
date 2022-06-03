@@ -13,11 +13,11 @@ import { signupStart } from "../redux/actions/signupAction";
 export const Login = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (localStorage.getItem("userLogin")) {
-      navigate("/dashboard");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("userLogin")) {
+  //     navigate("/dashboard");
+  //   }
+  // }, []);
 
   const dispatch = useDispatch();
   const [emailFields, setEmailError] = useState("");
@@ -25,7 +25,6 @@ export const Login = () => {
   const isLogin = useSelector((state) => state.login.isLogin);
   const isLoginError = useSelector((state) => state.login.error);
   const [showModal, setShowModal] = useState(false);
-  const [signupFields, setSignupFields] = useState("");
 
   const [checkLogin, setCheckLogin] = useState(false);
   const [login, setLogin] = useState({
@@ -98,11 +97,6 @@ export const Login = () => {
     return errorsDisp;
   };
 
-  const initalSignup = {
-    firstname: "",
-    lastname: "",
-    email: "",
-  };
   const formik = useFormik({
     initialValues: {
       firstname: "",
@@ -111,11 +105,11 @@ export const Login = () => {
     },
     onSubmit: (values) => {
       dispatch(signupStart(values));
-      // setTimeout(() => {
-      //   navigate("/");
-      //   toast.success("Signup successfully");
-      // }, 500);
-      // setShowModal(false);
+      setTimeout(() => {
+        navigate("/");
+        toast.success("Signup successfully");
+      }, 500);
+      setShowModal(false);
     },
     validate: validators,
   });

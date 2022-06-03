@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logOutUser } from "../redux/actions/loginActions";
 import { useDispatch, useSelector } from "react-redux";
 import profileImage from "../public/images/react.png";
@@ -7,7 +7,6 @@ import profileImage from "../public/images/react.png";
 const SideBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const useLogdin = localStorage.getItem("userLogin");
   const userEmail = localStorage.getItem("userEmail");
   const profileData = useSelector((state) => state.userprofile.userprofile);
 
@@ -77,7 +76,7 @@ const SideBar = () => {
                   <p>Contact Us</p>
                 </NavLink>
               </li>
-              <li className="nav-item menu-open">
+              <li className="nav-item">
                 <NavLink to="/profile" className="nav-link">
                   <i className="nav-icon fas fa-user"></i>
                   <p>Profile</p>
@@ -85,14 +84,14 @@ const SideBar = () => {
               </li>
 
               <li className="nav-item">
-                <a href="#" className="nav-link">
+                <NavLink to={"#"} className="nav-link">
                   <i className="nav-icon fas fa-shopping-bag"></i>
                   <p>
                     {" "}
                     Products
                     <i class="right fas fa-angle-left"></i>
                   </p>
-                </a>
+                </NavLink>
                 <ul class="nav nav-treeview" style={{ display: "none" }}>
                   <li class="nav-item">
                     <NavLink to="/products" className="nav-link">
@@ -100,6 +99,12 @@ const SideBar = () => {
                     </NavLink>
                   </li>
                 </ul>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/pagination-employee" className="nav-link">
+                  <i className="nav-icon fas fa-user"></i>
+                  <p>Pagination Employee</p>
+                </NavLink>
               </li>
 
               <li className="nav-item">
